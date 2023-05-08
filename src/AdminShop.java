@@ -24,17 +24,17 @@ public class AdminShop extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         addItemButton = new javax.swing.JButton();
         removeItemButton = new javax.swing.JButton();
-        finaliseCartButton = new javax.swing.JButton();
-        previousOrdersButton = new javax.swing.JButton();
+        removeUserButton = new javax.swing.JButton();
+        viewOrdersButton = new javax.swing.JButton();
         signOutButton = new javax.swing.JButton();
 
         addItemButton.setText("Add item");
 
         removeItemButton.setText("Remove item");
 
-        finaliseCartButton.setText("Finalise cart");
+        removeUserButton.setText("Remove user");
 
-        previousOrdersButton.setText("Previous orders");
+        viewOrdersButton.setText("View orders");
 
         signOutButton.setText("Sign out");
 
@@ -52,9 +52,9 @@ public class AdminShop extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addComponent(removeItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(finaliseCartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(removeUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(previousOrdersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(viewOrdersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -67,8 +67,8 @@ public class AdminShop extends javax.swing.JInternalFrame {
                     .addComponent(removeItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(finaliseCartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(previousOrdersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(removeUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewOrdersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(signOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 11, Short.MAX_VALUE))
@@ -80,10 +80,10 @@ public class AdminShop extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addItemButton;
-    private javax.swing.JButton finaliseCartButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton previousOrdersButton;
     private javax.swing.JButton removeItemButton;
+    private javax.swing.JButton removeUserButton;
     private javax.swing.JButton signOutButton;
+    private javax.swing.JButton viewOrdersButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,9 +30,9 @@
                       <Component id="removeItemButton" min="-2" pref="149" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="finaliseCartButton" min="-2" pref="149" max="-2" attributes="0"/>
+                      <Component id="removeUserButton" min="-2" pref="149" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="previousOrdersButton" min="-2" pref="149" max="-2" attributes="0"/>
+                      <Component id="viewOrdersButton" min="-2" pref="149" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -50,8 +50,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="finaliseCartButton" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                  <Component id="previousOrdersButton" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="removeUserButton" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="viewOrdersButton" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="signOutButton" min="-2" pref="47" max="-2" attributes="0"/>
@@ -75,14 +75,14 @@
         <Property name="text" type="java.lang.String" value="Remove item"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="finaliseCartButton">
+    <Component class="javax.swing.JButton" name="removeUserButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Finalise cart"/>
+        <Property name="text" type="java.lang.String" value="Remove user"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="previousOrdersButton">
+    <Component class="javax.swing.JButton" name="viewOrdersButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Previous orders"/>
+        <Property name="text" type="java.lang.String" value="View orders"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="signOutButton">
