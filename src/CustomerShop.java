@@ -32,8 +32,6 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         Inventory inv = new Inventory();
         FileManager fm = new FileManager();
         fm.readFromInventory(inv);
-
-        String[] line = inv.getStock();
         jList1 = new javax.swing.JList<>();
 
         addItemButton.setText("Add item");
