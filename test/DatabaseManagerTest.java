@@ -1,17 +1,17 @@
 
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import org.junit.Test;
 
 /**
  *
  * @author Lahndrick Hendricks
  */
 public class DatabaseManagerTest {
-
+    
     public DatabaseManagerTest() {
-        
+    
     }
 
     /**
@@ -32,7 +32,7 @@ public class DatabaseManagerTest {
     /**
      * Test of writeToTransactionLog method, of class DatabaseManager.
      */
-    @Test
+    @org.junit.Test
     public void testWriteToTransactionLog() {
         System.out.println("writeToTransactionLog");
         CartFinaliser cart = null;
@@ -45,7 +45,7 @@ public class DatabaseManagerTest {
     /**
      * Test of writeToInventory method, of class DatabaseManager.
      */
-    @Test
+    @org.junit.Test
     public void testWriteToInventory() {
         System.out.println("writeToInventory");
         Inventory inv = null;
@@ -58,7 +58,7 @@ public class DatabaseManagerTest {
     /**
      * Test of readFromInventory method, of class DatabaseManager.
      */
-    @Test
+    @org.junit.Test
     public void testReadFromInventory() {
         System.out.println("readFromInventory");
         Inventory inv = null;
@@ -71,7 +71,7 @@ public class DatabaseManagerTest {
     /**
      * Test of writeToInventoryAfterWipe method, of class DatabaseManager.
      */
-    @Test
+    @org.junit.Test
     public void testWriteToInventoryAfterWipe() {
         System.out.println("writeToInventoryAfterWipe");
         Inventory inv = null;
@@ -84,7 +84,7 @@ public class DatabaseManagerTest {
     /**
      * Test of writeToUserList method, of class DatabaseManager.
      */
-    @Test
+    @org.junit.Test
     public void testWriteToUserList() {
         System.out.println("writeToUserList");
         User user = null;
@@ -97,7 +97,7 @@ public class DatabaseManagerTest {
     /**
      * Test of readFromUserList method, of class DatabaseManager.
      */
-    @Test
+    @org.junit.Test
     public void testReadFromUserList() {
         System.out.println("readFromUserList");
         DatabaseManager instance = new DatabaseManager();
@@ -111,7 +111,7 @@ public class DatabaseManagerTest {
     /**
      * Test of removeUser method, of class DatabaseManager.
      */
-    @Test
+    @org.junit.Test
     public void testRemoveUser() {
         System.out.println("removeUser");
         String username = "";
@@ -121,5 +121,5 @@ public class DatabaseManagerTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+    
 }

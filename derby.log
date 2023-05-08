@@ -16,3 +16,6 @@ Database Class Loader started - derby.database.classpath=''
 Mon May 08 23:15:19 NZST 2023:
 Shutting down instance a816c00e-0187-fb12-b0de-ffffc51f2894 on database directory C:\Users\Lahndrick Hendricks\Desktop\Shoping-System\Shopping-System\ShoppingSystemDatabase with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
 Mon May 08 23:15:19 NZST 2023 Thread[DRDAConnThread_2,5,main] (DATABASE = ShoppingSystemDatabase), (DRDAID = {2}), Database 'ShoppingSystemDatabase' shutdown.
+----------------------------------------------------------------
+Mon May 08 23:39:57 NZST 2023: Shutting down Derby engine
+----------------------------------------------------------------
