@@ -16,12 +16,12 @@ public class Inventory extends FileManager {
     }
 
     //returns an array containing all the items in inventory
-    public Item[] getStock() {
-        Item[] items = new Item[stock.size()];
-        int x = 0;
+    public String[] getStock() {
+        String[] items = new String[stock.size()];
 
-        for (Item i : stock) {
-            items[x] = i;
+        for (int x = 0;x < stock.size();x++) {
+            Item i = getItem(x);
+            items[x] = i.toString();
         }
 
         return items;

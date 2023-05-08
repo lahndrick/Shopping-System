@@ -118,11 +118,13 @@ public class MainForm extends javax.swing.JFrame {
             desktopPane.removeAll();
             this.repaint();
             CustomerShop cusShop = new CustomerShop();
+            cusShop.setSize(desktopPane.getSize());
             desktopPane.add(cusShop).setVisible(true);
         } else if (new LoginUser(usernameField.getText(), passwordField.getText(), user).getProceed() == true && usernameField.getText().equalsIgnoreCase("admin")) {
             desktopPane.removeAll();
             this.repaint();
             AdminShop adminShop = new AdminShop();
+            adminShop.setSize(desktopPane.getSize());
             desktopPane.add(adminShop).setVisible(true);
         }
      
