@@ -28,11 +28,6 @@ public class ShoppingCart {
             total += cart.get(x).getCost();
         }
 
-        //if customer decides to ship instead of pickup, $10 charged for shipping
-        if (pickup == false) {
-            total += 10;
-        }
-
         return total;
     }
 
@@ -59,8 +54,6 @@ public class ShoppingCart {
         for (int x = 0; x < cart.size(); x++) {
             output += (x + 1) + ". " + cart.get(x).toString() + "\n";
         }
-
-        output += "\nTotal: " + (this.getTotal() - 10);
 
         return output;
     }

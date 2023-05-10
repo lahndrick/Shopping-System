@@ -1,12 +1,12 @@
-
-import javax.swing.JList;
-
 /**
  *
  * @author Lahndrick Hendricks
  */
 public class CustomerShop extends javax.swing.JInternalFrame {
 
+    ShoppingCart cart;
+    Inventory inv;
+    
     /**
      * Creates new form CustomerShop
      */
@@ -29,12 +29,22 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         previousOrdersButton = new javax.swing.JButton();
         removeItemButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Inventory inv = new Inventory();
+        inv = new Inventory();
         FileManager fm = new FileManager();
         fm.readFromInventory(inv);
-        jList1 = new javax.swing.JList<>();
+        inventoryList = new javax.swing.JList<>();
+        itemSalesLabel = new javax.swing.JLabel();
+        itemsCartLabel = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        cart = new ShoppingCart();
+        shoppingCartList = new javax.swing.JList<>();
 
         addItemButton.setText("Add item");
+        addItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addItemButtonMouseClicked(evt);
+            }
+        });
 
         finaliseCartButton.setText("Finalise cart");
 
@@ -44,12 +54,23 @@ public class CustomerShop extends javax.swing.JInternalFrame {
 
         removeItemButton.setText("Remove item");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        inventoryList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = inv.getStock();
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(inventoryList);
+
+        itemSalesLabel.setText("Items for sale");
+
+        itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
+
+        shoppingCartList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = cart.toString().split("\n");
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(shoppingCartList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,26 +79,36 @@ public class CustomerShop extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(signOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(removeItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(finaliseCartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(previousOrdersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
+                        .addComponent(previousOrdersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(itemSalesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(itemsCartLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(364, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
+                .addComponent(itemSalesLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93)
+                .addComponent(itemsCartLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(removeItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -88,24 +119,33 @@ public class CustomerShop extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(signOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(183, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addItemButtonMouseClicked
+        int index = inventoryList.getSelectedIndex();
+        Item item = inv.getItem(index);
+        cart.addItem(item);
+        String[] items = cart.toString().split("\n");
+        shoppingCartList.setListData(items);
+        itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
+        jScrollPane3.setViewportView(shoppingCartList);
+    }//GEN-LAST:event_addItemButtonMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addItemButton;
     private javax.swing.JButton finaliseCartButton;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> inventoryList;
+    private javax.swing.JLabel itemSalesLabel;
+    private javax.swing.JLabel itemsCartLabel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton previousOrdersButton;
     private javax.swing.JButton removeItemButton;
+    private javax.swing.JList<String> shoppingCartList;
     private javax.swing.JButton signOutButton;
     // End of variables declaration//GEN-END:variables
 }
