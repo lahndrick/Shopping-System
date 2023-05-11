@@ -125,7 +125,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             String name = user.getUsername();
             String password = user.getUsername();
 
-            String query = "INSERT INTO userlist (username, password) VALUES ('" + name + "', " + password + ")";
+            String query = "INSERT INTO userlist (username, password) VALUES ('" + name + "', '" + password + "')";
             Statement statement = conn.createStatement();
             statement.executeUpdate(query);
 
@@ -196,6 +196,6 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
 
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
-        }
-    }
+        } 
+   }
 }
