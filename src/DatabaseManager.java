@@ -145,12 +145,16 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         try {
             list = new ArrayList<>();
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            String query = "SELECT * FROM userlist";
+            String query = "SELECT username,password FROM userlist";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
+            //this is only returning column 1
             while (resultSet.next()) {
-                list.add(resultSet.getString("username") + ":" + resultSet.getString("password"));
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String line = username + "," + password;
+                list.add(line);
             }
 
             resultSet.close();
@@ -169,7 +173,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
     public void removeUser(String username, String password) {
         try {
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            String query = "DELETE FROM userlist WHERE username = '" + username + "', and password = '" + password + "'  ";
+            String query = "DELETE FROM userlist WHERE username = '" + username + "' AND password = '" + password + "'";
 
             Statement statement = conn.createStatement();
             statement.executeUpdate(query);
@@ -196,6 +200,6 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
 
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
-        } 
-   }
+        }
+    }
 }
