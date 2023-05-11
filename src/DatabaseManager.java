@@ -1,10 +1,15 @@
+
 import java.util.ArrayList;
 
 /**
  *
  * @author Lahndrick Hendricks
  */
-public class DatabaseManager implements TransactionManager, InventoryManager, UserListManager{
+public class DatabaseManager implements TransactionManager, InventoryManager, UserListManager {
+
+    private static final String USER_NAME = "lahn"; //DB username
+    private static final String PASSWORD = "lahn"; //DB password
+    private static final String URL = "jdbc:derby:ShoppingDatabase;create=true";  //url of the DB
 
     //method to read from transaction table
     @Override
@@ -53,5 +58,5 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
     public void removeUser(String username, String password) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO
     }
-    
+
 }

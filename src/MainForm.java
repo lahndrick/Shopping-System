@@ -1,4 +1,3 @@
-
 /**
  *
  * @author Lahndrick Hendricks
@@ -127,8 +126,8 @@ public class MainForm extends javax.swing.JFrame {
             adminShop.setSize(desktopPane.getSize());
             desktopPane.add(adminShop).setVisible(true);
         }
-     
-        
+
+
     }//GEN-LAST:event_loginButtonMouseClicked
 
     /**
