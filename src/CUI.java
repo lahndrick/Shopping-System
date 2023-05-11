@@ -15,7 +15,7 @@ public class CUI {
         new CreateFiles();
         Scanner scan = new Scanner(System.in);
         Inventory inv = new Inventory();
-        FileManager fm = new FileManager();
+//        FileManager fm = new FileManager();
         User user = new User("", "");
         String lineClear = "";
         int purchaseChoice;
@@ -25,7 +25,7 @@ public class CUI {
         while (true) {
 
             //update inventory using txt file
-            fm.readFromInventory(inv);
+//            fm.readFromInventory(inv);
             int loginRegister = 0;
 
             System.out.println("1. Log in");
@@ -195,13 +195,13 @@ public class CUI {
                                     //previous orders    
                                     case 4:
                                         System.out.println("Previous orders:");
-                                        String prevOrders = fm.readFromTransactionLog(user.getUsername());
+//                                        String prevOrders = fm.readFromTransactionLog(user.getUsername());
 
-                                        if (prevOrders == null) {
-                                            System.out.println("No previous orders");
-                                        } else {
-                                            System.out.println(prevOrders);
-                                        }
+//                                        if (prevOrders == null) {
+//                                            System.out.println("No previous orders");
+//                                        } else {
+//                                            System.out.println(prevOrders);
+//                                        }
                                         break;
 
                                     //sign out
@@ -332,7 +332,7 @@ public class CUI {
                                 //remove item from inventory
                                 case 2:
                                     System.out.println("Item list:");
-                                    fm.readFromInventory(inv);
+//                                    fm.readFromInventory(inv);
                                     System.out.println(inv.toString());
                                     System.out.println("\nWhich item would you like to remove? (enter 0 to cancel)");
                                     adminChoice = 0;

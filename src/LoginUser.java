@@ -5,7 +5,7 @@ import java.util.ArrayList;
  *
  * @author Lahndrick Hendricks
  */
-public class LoginUser extends FileManager {
+public class LoginUser extends DatabaseManager {
 
     private User user;
     private boolean proceed;

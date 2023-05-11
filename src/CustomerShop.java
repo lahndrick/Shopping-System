@@ -30,7 +30,7 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         removeItemButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         inv = new Inventory();
-        FileManager fm = new FileManager();
+        DatabaseManager fm = new DatabaseManager();
         fm.readFromInventory(inv);
         inventoryList = new javax.swing.JList<>();
         itemSalesLabel = new javax.swing.JLabel();

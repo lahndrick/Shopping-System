@@ -14,7 +14,7 @@ public class CartFinaliser extends ShoppingCart {
 
     private User user;
     private String password;
-    private FileManager fileMan;
+    private DatabaseManager fileMan;
     private int size;
     private double total;
     private boolean clear;
@@ -22,7 +22,7 @@ public class CartFinaliser extends ShoppingCart {
     public CartFinaliser(User user, ShoppingCart cart) {
         this.user = user;
         this.password = user.getPassword();
-        fileMan = new FileManager();
+        fileMan = new DatabaseManager();
         this.size = super.getCart().size();
         this.total = cart.getTotal();
         this.clear = true;
@@ -87,7 +87,8 @@ public class CartFinaliser extends ShoppingCart {
                 switch (input) {
                     case 1:
                         //writes the transaction to a file named "transactionlog.txt"
-                        fileMan.writeToTransactionLog(this);
+                        //TODO replace this
+//                        fileMan.writeToTransactionLog(this);
                         clear = true;
                         System.out.println("Transaction completed.");
                         //end while loop

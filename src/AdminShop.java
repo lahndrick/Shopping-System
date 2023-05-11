@@ -28,8 +28,8 @@ public class AdminShop extends javax.swing.JInternalFrame {
         signOutButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Inventory inv = new Inventory();
-        FileManager fm = new FileManager();
-        fm.readFromInventory(inv);
+        DatabaseManager dm = new DatabaseManager();
+        dm.readFromInventory(inv);
         jList1 = new javax.swing.JList<>();
 
         addItemButton.setText("Add item");

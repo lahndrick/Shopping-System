@@ -6,7 +6,7 @@ import java.util.TreeSet;
  *
  * @author Lahndrick Hendricks
  */
-public class Inventory extends FileManager {
+public class Inventory extends DatabaseManager {
 
     //set was chosen as items need to be unique
     private SortedSet<Item> stock;
@@ -66,7 +66,7 @@ public class Inventory extends FileManager {
 
     //takes the inventory and writes it into the inventory.txt file
     public void writeStock() {
-        this.writeToInventoryAfterWipe(this);
+        this.writeToInventory(this);
     }
 
     public Item getItem(int n) {

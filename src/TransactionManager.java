@@ -6,6 +6,6 @@
 //therefor needs to implement three instead of extend to only one
 public abstract interface TransactionManager {
 
-    public String readFromTransactionLog(String username);
-    public void writeToTransactionLog(CartFinaliser cart);
+    public String[] readFromTransactionLog();
+    public void writeToTransactionLog(String username, Double total);
 }

@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author Lahndrick Hendricks
  */
 //class for removing a user if person knows both username and password
-public class RemoveUser extends FileManager {
+public class RemoveUser extends DatabaseManager {
 
     private String username;
     private String password;    
@@ -39,19 +39,19 @@ public class RemoveUser extends FileManager {
             System.out.println("Input error.");
         }
 
-        new FileManager().removeUser(username, password);
+        new DatabaseManager().removeUser(username, password);
     }
 
     //for when an admin removes the user
     public RemoveUser(String confirm, String username) {
-        ArrayList users = new FileManager().readFromUserList();
+        ArrayList users = new DatabaseManager().readFromUserList();
         String[] line = new String[2];
 
         for (int x = 0; x < users.size(); x++) {
             line = users.get(x).toString().split(":");
 
             if (username.equalsIgnoreCase(line[0])) {
-                new FileManager().removeUser(username, line[1]);
+                new DatabaseManager().removeUser(username, line[1]);
             }
         }
     }

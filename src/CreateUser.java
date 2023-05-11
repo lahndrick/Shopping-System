@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * addToList: this method adds the username to a txt file called userlist.txt that lists all other usernames already chosen
  * CreateUser(2 input): this constructor uses both the checkUsername and addToList methods to first verify whether the chosen username is available, then add that username to the list
  */
-public class CreateUser extends FileManager {
+public class CreateUser extends DatabaseManager {
     
     private User user;
     
@@ -18,7 +18,7 @@ public class CreateUser extends FileManager {
     public CreateUser(String username, String password) {
         boolean nameCheck = this.checkUsername(username);
         
-        if(nameCheck) { 
+        if(nameCheck) {
             user = new User(username, password);
             addToList(user);
             System.out.println("User created.");
