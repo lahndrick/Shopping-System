@@ -41,7 +41,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             conn.close();
 
         } catch (SQLException e) {
-            System.out.println("Error while reading from transaction log.");
+            System.out.println("SQLException: " + e.getMessage());
         }
 
         return result;
@@ -60,7 +60,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             conn.close();
 
         } catch (SQLException e) {
-            System.out.println("Error while writing to transaction log.");
+            System.out.println("SQLException: " + e.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
     @Override
     public void writeToInventory(Inventory inv) {
         try {
-            Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+            Connection conn = DriverManager.getConnection(URL);
             String query = null;
             Statement statement = null;
 
@@ -85,7 +85,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             conn.close();
 
         } catch (SQLException e) {
-            System.out.println("Error while writing to inventory list.");
+            System.out.println("SQLException: " + e.getMessage());
         }
     }
 
@@ -95,7 +95,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         try {
             ArrayList<String> list = new ArrayList<>();
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            String query = "SELECT username, total_paid FROM Transactions";
+            String query = "SELECT item, cost FROM Inventory";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -104,7 +104,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
 
             while (resultSet.next()) {
                 String user = resultSet.getString("username");
-                double totalPaid = resultSet.getDouble("total_paid");
+                double totalPaid = resultSet.getDouble("cost");
                 inv.addItem(new Item(user, totalPaid));
             }
 
@@ -113,7 +113,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             conn.close();
 
         } catch (SQLException e) {
-            System.out.println("Error while reading from inventory list.");
+            System.out.println("SQLException: " + e.getMessage());
         }
     }
 
@@ -125,7 +125,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             String name = user.getUsername();
             String password = user.getUsername();
 
-            String query = "INSERT INTO userlist (item, password) VALUES ('" + name + "', " + password + ")";
+            String query = "INSERT INTO userlist (username, password) VALUES ('" + name + "', " + password + ")";
             Statement statement = conn.createStatement();
             statement.executeUpdate(query);
 
@@ -133,7 +133,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             conn.close();
 
         } catch (SQLException e) {
-            System.out.println("Error while writing to inventory list.");
+            System.out.println("SQLException: " + e.getMessage());
         }
     }
 
@@ -145,7 +145,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         try {
             list = new ArrayList<>();
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            String query = "SELECT * FROM Transactions";
+            String query = "SELECT * FROM userlist";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -158,7 +158,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             conn.close();
 
         } catch (SQLException e) {
-            System.out.println("Error while reading from inventory list.");
+            System.out.println("SQLException: " + e.getMessage());
         }
 
         return list;
@@ -178,7 +178,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             conn.close();
 
         } catch (SQLException e) {
-            System.out.println("Error while writing to inventory list.");
+            System.out.println("SQLException: " + e.getMessage());
         }
     }
 
@@ -195,7 +195,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             conn.close();
 
         } catch (SQLException e) {
-            System.out.println("Error while writing to inventory list.");
+            System.out.println("SQLException: " + e.getMessage());
         }
     }
 }
