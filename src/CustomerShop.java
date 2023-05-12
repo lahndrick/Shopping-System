@@ -59,10 +59,10 @@ public class CustomerShop extends javax.swing.JInternalFrame {
 
         removeItemButton.setText("Remove item");
 
+        String[] items = inv.toString().split("\n");
         inventoryList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = inv.getStock();
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public int getSize() { return items.length; }
+            public String getElementAt(int i) { return items[i]; }
         });
         jScrollPane1.setViewportView(inventoryList);
 

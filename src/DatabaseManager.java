@@ -34,7 +34,9 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
                 list.add(user + "," + totalPaid);
             }
 
-            result = list.toArray(new String[list.size()]);
+            for (int x = 0; x < list.size(); x++) {
+                result[x] = list.get(x);
+            }
 
             resultSet.close();
             statement.close();

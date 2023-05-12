@@ -1,6 +1,4 @@
-
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -8,11 +6,11 @@ import java.util.TreeSet;
  */
 public class Inventory extends DatabaseManager {
 
-    //set was chosen as items need to be unique
-    private SortedSet<Item> stock;
+    //array list was chosen as items don't need to be unique
+    private ArrayList<Item> stock;
 
     public Inventory() {
-        this.stock = new TreeSet();
+        this.stock = new ArrayList();
     }
 
     //returns an array containing all the items in inventory
@@ -20,8 +18,7 @@ public class Inventory extends DatabaseManager {
         String[] items = new String[stock.size()];
 
         for (int x = 0;x < stock.size();x++) {
-            Item i = getItem(x);
-            items[x] = i.toString();
+            items[x] = getItem(x).toString();
         }
 
         return items;
@@ -70,18 +67,9 @@ public class Inventory extends DatabaseManager {
     }
 
     public Item getItem(int n) {
-        int currentIndex = 0;
-
         if (n < stock.size() && n >= 0) {
-            //loop through set until desired index is met, then return the Item at that index
-            for (Item item : stock) {
-                if (currentIndex == n) {
-                    return item;
-                }
-                currentIndex++;
-            }
+            return stock.get(n);
         }
-
         return null;
     }
 
