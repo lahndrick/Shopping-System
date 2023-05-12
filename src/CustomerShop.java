@@ -54,6 +54,11 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         previousOrdersButton.setText("Previous orders");
 
         removeItemButton.setText("Remove item");
+        removeItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeItemButtonMouseClicked(evt);
+            }
+        });
 
         itemSalesLabel.setText("Items for sale");
 
@@ -134,6 +139,15 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
         jScrollPane3.setViewportView(shoppingCartList);
     }//GEN-LAST:event_addItemButtonMouseClicked
+
+    private void removeItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeItemButtonMouseClicked
+        int index = shoppingCartList.getSelectedIndex();
+        cart.removeItem(index);
+        String[] items = cart.toString().split("\n");
+        shoppingCartList.setListData(items);
+        itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
+        jScrollPane2.setViewportView(shoppingCartList);
+    }//GEN-LAST:event_removeItemButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
