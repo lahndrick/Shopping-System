@@ -14,7 +14,15 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
 
     private static final String USER_NAME = "lahn"; //DB username
     private static final String PASSWORD = "lahn"; //DB password
-    private static final String URL = "jdbc:derby://localhost:1527/ShoppingDatabase";  //url of the DB
+    private static final String URL = "jdbc:derby:ShoppingDatabase;create=true";  //url of the DB
+
+    public DatabaseManager() {
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+        } catch (Exception e) {
+            System.out.println("Driver error");
+        }
+    }
 
     //method to read from transaction table and return it as a string[]
     @Override
@@ -93,20 +101,25 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
 
     //method to read from inventory table and update the inventory object with it
     @Override
-    public void readFromInventory(Inventory inv) {
+    public Item[] readFromInventory() {
+        Item[] items = null;
+
         try {
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
             String query = "SELECT name, cost FROM Inventory";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-
-            //wipe the existing inventory to add the items from database
-            inv = new Inventory();
+            ArrayList<Item> list = new ArrayList();
 
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 double totalPaid = resultSet.getDouble("cost");
-                inv.addItem(new Item(name, totalPaid));
+                list.add(new Item(name, totalPaid));
+            }
+
+            items = new Item[list.size()];
+            for (int x = 0; x < items.length; x++) {
+                items[x] = list.get(x);
             }
 
             resultSet.close();
@@ -116,6 +129,8 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }
+
+        return items;
     }
 
     //method to add a user to user table

@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 /**
@@ -15,50 +16,54 @@ public class Inventory extends DatabaseManager {
 
     //returns an array containing all the items in inventory
     public String[] getStock() {
-        String[] items = new String[stock.size()];
+        Item[] items = readFromInventory();
+        stock = new ArrayList();
+        String returnString = "";
 
-        for (int x = 0;x < stock.size();x++) {
-            items[x] = getItem(x).toString();
+        for (int x = 0; x < items.length; x++) {
+            returnString += items[x].toString() + "\n";
+            stock.add(items[x]);
         }
 
-        return items;
+        if (stock.size() < 1) {
+            returnString = "No items in stock";
+        }
+
+        return returnString.split("\n");
     }
 
     @Override
     public String toString() {
+        Item[] items = readFromInventory();
         String output = "";
 
-        if (stock.size() > 0) {
-            int counter = 0;
-
-            for (Item i : stock) {
-                counter++;
-                output += counter + ". " + i.toString() + "\n";
-            }
-        } else {
-            output = "Currently no stock";
+        for (int x = 0; x < items.length; x++) {
+            output += items[x].toString();
         }
 
         return output;
     }
 
     public int getSize() {
+        Item[] items = readFromInventory();
+        stock = new ArrayList();
+
+        for (int x = 0; x < stock.size(); x++) {
+            stock.add(items[x]);
+        }
+
         return stock.size();
     }
 
     public void addItem(Item item) {
         if (this.checkItemName(item.getName())) {
             stock.add(item);
+            writeToInventory(this);
         }
     }
 
     public void removeItem(Item item) {
         stock.remove(item);
-    }
-
-    //reads from the inventory.txt files and adds each line into the stock set
-    public void retrieveStock() {
-        this.readFromInventory(this);
     }
 
     //takes the inventory and writes it into the inventory.txt file

@@ -8,5 +8,5 @@
 public abstract interface InventoryManager {
     
     public void writeToInventory(Inventory inv);
-    public void readFromInventory(Inventory inv);
+    public Item[] readFromInventory();
 }
