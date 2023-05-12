@@ -29,7 +29,7 @@ public class CreateUser extends DatabaseManager {
     
     //boolean method used to check whether an username is available
     public boolean checkUsername(String username) {
-        ArrayList<String> usernames;
+        ArrayList<String[]> usernames;
         String[] userGrab = new String[2];
         
         String nameCheck = username.trim();
@@ -45,7 +45,7 @@ public class CreateUser extends DatabaseManager {
             
             for(int x = 0;x < usernames.size();x++) {
                 //splits user into username (0) and password (1)
-                userGrab = usernames.get(x).split(":");
+                userGrab = usernames.get(x);
                 
                 //if username is taken or blank
                 if(nameCheck.equalsIgnoreCase(userGrab[0]) || username.equalsIgnoreCase("")) {

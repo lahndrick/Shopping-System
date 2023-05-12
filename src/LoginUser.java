@@ -23,39 +23,24 @@ public class LoginUser extends DatabaseManager {
         }
     }
 
-    public ArrayList<String> readFromUsers() {
-
-        ArrayList<String> users = new ArrayList();
-        ArrayList<String> userList = new ArrayList();
-
-        if (this.readFromUserList() != null) {
-            userList = super.readFromUserList();
-
-            for (int x = 0; x < userList.size(); x++) {
-                users.add(userList.get(x));
-            }
-        }
-
-        return users;
-    }
-
     public boolean testLogin(String username, String password) {
-        ArrayList<String> users = readFromUserList();
+        ArrayList<String[]> users = readFromUserList();
         String[] namePass = new String[2];
 
         if (users != null) {
             for (int x = 0; x < users.size(); x++) {
-                namePass = users.get(x).split(",");
+                namePass = users.get(x);
                 //if username and password combination is found
                 if (username.equalsIgnoreCase(namePass[0]) && password.equalsIgnoreCase(namePass[1])) {
                     user.setUsername(username);
                     user.setPassword(password);
-                    System.out.println(user.getPassword());
+
                     return true;
                 }
+
             }
         }
-        
+
         return false;
     }
 

@@ -49,6 +49,11 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         finaliseCartButton.setText("Finalise cart");
 
         signOutButton.setText("Sign out");
+        signOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                signOutButtonMouseClicked(evt);
+            }
+        });
 
         previousOrdersButton.setText("Previous orders");
 
@@ -133,6 +138,10 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
         jScrollPane3.setViewportView(shoppingCartList);
     }//GEN-LAST:event_addItemButtonMouseClicked
+
+    private void signOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutButtonMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_signOutButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -14,7 +14,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
 
     private static final String USER_NAME = "lahn"; //DB username
     private static final String PASSWORD = "lahn"; //DB password
-    private static final String URL = "jdbc:derby:ShoppingDatabase;create=true";  //url of the DB
+    private static final String URL = "jdbc:derby://localhost:1527/ShoppingDatabase";  //url of the DB
 
     //method to read from transaction table and return it as a string[]
     @Override
@@ -76,7 +76,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
                 String name = inv.getItem(x).getName();
                 Double cost = inv.getItem(x).getCost();
 
-                query = "INSERT INTO Inventory (item, cost) VALUES ('" + name + "', " + cost + ")";
+                query = "INSERT INTO Inventory (name, cost) VALUES ('" + name + "', " + cost + ")";
                 statement = conn.createStatement();
                 statement.executeUpdate(query);
             }
@@ -93,9 +93,8 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
     @Override
     public void readFromInventory(Inventory inv) {
         try {
-            ArrayList<String> list = new ArrayList<>();
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            String query = "SELECT item, cost FROM Inventory";
+            String query = "SELECT name, cost FROM Inventory";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -103,9 +102,9 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
             inv = new Inventory();
 
             while (resultSet.next()) {
-                String user = resultSet.getString("username");
+                String name = resultSet.getString("name");
                 double totalPaid = resultSet.getDouble("cost");
-                inv.addItem(new Item(user, totalPaid));
+                inv.addItem(new Item(name, totalPaid));
             }
 
             resultSet.close();
@@ -139,25 +138,24 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
 
     //method to read from user table
     @Override
-    public ArrayList<String> readFromUserList() {
-        ArrayList<String> list = null;
+    public ArrayList<String[]> readFromUserList() {
+        ArrayList<String[]> list = new ArrayList<>();
 
         try {
-            list = new ArrayList<>();
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
             String query = "SELECT username,password FROM userlist";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            //this is only returning column 1
             while (resultSet.next()) {
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
-                String line = username + "," + password;
+                String[] line = {username, password};
+
                 list.add(line);
             }
 
-            resultSet.close();
+            //resultSet.close();
             statement.close();
             conn.close();
 

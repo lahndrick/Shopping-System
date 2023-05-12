@@ -10,6 +10,6 @@ import java.util.ArrayList;
 public abstract interface UserListManager {
     
     public void writeToUserList(User user);
-    public ArrayList<String> readFromUserList();
+    public ArrayList<String[]> readFromUserList();
     public void removeUser(String username,String password);
 }
