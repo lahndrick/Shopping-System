@@ -139,7 +139,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         try {
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
             String name = user.getUsername();
-            String password = user.getUsername();
+            String password = user.getPassword();
 
             String query = "INSERT INTO userlist (username, password) VALUES ('" + name + "', '" + password + "')";
             Statement statement = conn.createStatement();

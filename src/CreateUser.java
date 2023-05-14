@@ -13,17 +13,20 @@ import java.util.ArrayList;
 public class CreateUser extends DatabaseManager {
     
     private User user;
+    private boolean check;
     
     //when user is created, it first checks whether the username is available
     public CreateUser(String username, String password) {
         boolean nameCheck = this.checkUsername(username);
+        check = false;
         
         if(nameCheck) {
             user = new User(username, password);
-            addToList(user);
-            System.out.println("User created.");
+            check = true;
+            writeToUserList(user);
         } else {
             System.out.println("Username already taken.");
+            check = false;
         }
     }
     
@@ -35,7 +38,6 @@ public class CreateUser extends DatabaseManager {
         String nameCheck = username.trim();
         
         if(nameCheck.isEmpty()) {
-            System.out.println("Username is empty");
             return false;
         }
         
@@ -57,12 +59,11 @@ public class CreateUser extends DatabaseManager {
         return true;
     }
     
-    //add to txt file
-    public void addToList(User user) {
-        this.writeToUserList(user);
-    }
-    
     public User getUser(){
         return this.user;
+    }
+    
+    public boolean getCheck() {
+        return check;
     }
 }

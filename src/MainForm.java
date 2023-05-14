@@ -1,3 +1,7 @@
+
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author Lahndrick Hendricks
@@ -55,6 +59,11 @@ public class MainForm extends javax.swing.JFrame {
         passwordLabel.setText("Password");
 
         createUserButton.setText("Create");
+        createUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                createUserButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,7 +98,6 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(desktopPane)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -128,6 +136,16 @@ public class MainForm extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_loginButtonMouseClicked
+
+    private void createUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createUserButtonMouseClicked
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        CreateUser cu = new CreateUser(username, password);
+
+        if (cu.getCheck()) {
+            JOptionPane.showMessageDialog(null, "New User Created");
+        }
+    }//GEN-LAST:event_createUserButtonMouseClicked
 
     /**
      * @param args the command line arguments
