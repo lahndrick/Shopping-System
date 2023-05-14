@@ -82,24 +82,12 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
     public void writeToInventory(Inventory inv) {
         try {
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+            Statement statement = conn.createStatement();
             String query = "";
-            Statement statement = null;
-            Item[] items = readFromInventory();
-            Item newItem = inv.getLast();
-
-            inv = new Inventory();
-
-            for (int x = 0; x < items.length; x++) {
-                inv.addItem(items[x]);
-            }
-
-            inv.addItem(newItem);
 
             for (int x = 0; x < inv.getSize(); x++) {
                 query = "INSERT INTO Inventory (name, cost) VALUES ('" + inv.getItem(x).getName() + "', " + inv.getItem(x).getCost() + ")";
-                statement = conn.createStatement();
                 statement.executeUpdate(query);
-                System.out.println("item count: " + x);
             }
 
             statement.close();
@@ -110,7 +98,42 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         }
     }
 
-    //method to read from inventory table and update the inventory object with it
+    //method to add one item to the table instead of the whole inventory
+    public void writeItemToInventory(String name, Double cost) {
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+            Statement statement = conn.createStatement();
+            String query = "";
+
+            query = "INSERT INTO Inventory (name, cost) VALUES ('" + name + "', " + cost + ")";
+            statement.executeUpdate(query);
+
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+    }
+
+    public void removeItemFromInventory(String name) {
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+            Statement statement = conn.createStatement();
+            String query = "";
+
+            query = "DELETE FROM Inventory WHERE name = '" + name + "'";
+            statement.executeUpdate(query);
+
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+    }
+
+//method to read from inventory table and update the inventory object with it
     @Override
     public Item[] readFromInventory() {
         Item[] items = null;

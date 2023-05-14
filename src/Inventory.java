@@ -38,7 +38,7 @@ public class Inventory extends DatabaseManager {
         String output = "";
 
         for (int x = 0; x < items.length; x++) {
-            output += items[x].toString();
+            output += items[x].toString() + "\n";
         }
 
         return output;
@@ -56,8 +56,10 @@ public class Inventory extends DatabaseManager {
     }
 
     public void addItem(Item item) {
-        if (this.checkItemName(item.getName())) {
+        if (this.checkItemName(item.getName()) && item.getCost() > 0) {
             stock.add(item);
+        } else {
+            System.out.println("problem is in inv");
         }
     }
 
@@ -86,9 +88,5 @@ public class Inventory extends DatabaseManager {
             }
         }
         return true;
-    }
-    
-    public Item getLast(){
-        return this.getItem(this.getSize());
     }
 }

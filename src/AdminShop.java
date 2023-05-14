@@ -1,4 +1,7 @@
 
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author Lahndrick Hendricks
@@ -8,7 +11,7 @@ public class AdminShop extends javax.swing.JInternalFrame {
     private DatabaseManager db = new DatabaseManager();
     private String username;
     private String password;
-    Inventory inv;
+    private Inventory inv;
 
     public void setUsername(String username) {
         this.username = username;
@@ -41,7 +44,7 @@ public class AdminShop extends javax.swing.JInternalFrame {
         signOutButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         inv = new Inventory();
-        jList1 = new javax.swing.JList<>();
+        inventoryJList = new javax.swing.JList<>();
         itemNameTextField = new javax.swing.JTextField();
         itemCostTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -55,19 +58,29 @@ public class AdminShop extends javax.swing.JInternalFrame {
         });
 
         removeItemButton.setText("Remove item");
+        removeItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeItemButtonMouseClicked(evt);
+            }
+        });
 
         removeUserButton.setText("Remove user");
 
         viewOrdersButton.setText("View orders");
 
         signOutButton.setText("Sign out");
+        signOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                signOutButtonMouseClicked(evt);
+            }
+        });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        inventoryJList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = inv.getStock();
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(inventoryJList);
 
         jLabel1.setText("Item name");
 
@@ -138,9 +151,39 @@ public class AdminShop extends javax.swing.JInternalFrame {
 
     private void addItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addItemButtonMouseClicked
         String itemName = itemNameTextField.getText();
-        String costString = itemCostTextField.getText();
-        double itemCost = Double.parseDouble(costString);
+        Double itemCost = Double.parseDouble(itemCostTextField.getText());
+        //TODO update the list
+        db.writeItemToInventory(itemName, itemCost);
 
+        Item[] items = db.readFromInventory();
+
+        for (int x = 0; x < items.length; x++) {
+            inv.addItem(items[x]);
+        }
+
+        inventoryJList.setListData(inv.toString().split("\n"));
+        jScrollPane2.setViewportView(inventoryJList);
+    }//GEN-LAST:event_addItemButtonMouseClicked
+
+    private void signOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutButtonMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_signOutButtonMouseClicked
+
+    private void removeItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeItemButtonMouseClicked
+//        int index = shoppingCartList.getSelectedIndex();
+//        cart.removeItem(index);
+//        String[] items = cart.toString().split("\n");
+//        shoppingCartList.setListData(items);
+//        itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
+//        jScrollPane3.setViewportView(shoppingCartList);     
+        int index = inventoryJList.getSelectedIndex();
+
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this, "Error");
+        }
+
+        Item item = inv.getItem(index);
+        db.removeItemFromInventory(item.getName());
         inv = new Inventory();
         Item[] items = db.readFromInventory();
 
@@ -148,18 +191,18 @@ public class AdminShop extends javax.swing.JInternalFrame {
             inv.addItem(items[x]);
         }
 
-        inv.addItem(new Item(itemName, itemCost));
-        db.writeToInventory(inv);
-    }//GEN-LAST:event_addItemButtonMouseClicked
+        inventoryJList.setListData(inv.toString().split("\n"));
+        jScrollPane2.setViewportView(inventoryJList);
+    }//GEN-LAST:event_removeItemButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addItemButton;
+    private javax.swing.JList<String> inventoryJList;
     private javax.swing.JTextField itemCostTextField;
     private javax.swing.JTextField itemNameTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton removeItemButton;
     private javax.swing.JButton removeUserButton;

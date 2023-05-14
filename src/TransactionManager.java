@@ -1,9 +1,9 @@
+
 /**
  *
  * @author Lahndrick Hendricks
  */
-//interface created instead of class as central manager (FileManager.java) needs to interact with 3 different files (userlist.txt, transactionlog.txt and inventory.txt)
-//therefor needs to implement three instead of extend to only one
+//interface created instead of class as central manager (DatabaseManager.java) needs to interact with 3 different tables (userlist, transaction log and inventory)
 public abstract interface TransactionManager {
 
     public String[] readFromTransactionLog();
