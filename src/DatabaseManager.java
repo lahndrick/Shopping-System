@@ -32,18 +32,21 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         try {
             ArrayList<String> list = new ArrayList<>();
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            String query = "SELECT username, total FROM transactionlog";
+            String query = "SELECT total, username FROM transactionlog";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
                 String user = resultSet.getString("username");
-                double totalPaid = resultSet.getDouble("total_paid");
+                double totalPaid = resultSet.getDouble("total");
                 list.add(user + "," + totalPaid);
             }
 
-            for (int x = 0; x < list.size(); x++) {
-                result[x] = list.get(x);
+            result = new String[list.size()];
+            if (result != null) {
+                for (int x = 0; x < list.size(); x++) {
+                    result[x] = list.get(x);
+                }
             }
 
             resultSet.close();

@@ -96,11 +96,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Sign out"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="signOutButtonMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="previousOrdersButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Previous orders"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="previousOrdersButtonMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="removeItemButton">
       <Properties>

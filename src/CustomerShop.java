@@ -1,4 +1,6 @@
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lahndrick Hendricks
@@ -65,8 +67,18 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         });
 
         signOutButton.setText("Sign out");
+        signOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                signOutButtonMouseClicked(evt);
+            }
+        });
 
         previousOrdersButton.setText("Previous orders");
+        previousOrdersButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                previousOrdersButtonMouseClicked(evt);
+            }
+        });
 
         removeItemButton.setText("Remove item");
         removeItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,6 +184,29 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
         jScrollPane3.setViewportView(shoppingCartList);
     }//GEN-LAST:event_finaliseCartButtonMouseClicked
+
+    private void previousOrdersButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousOrdersButtonMouseClicked
+        String[] array = db.readFromTransactionLog();
+        String output = "";
+
+        for (int x = 0; x < array.length; x++) {
+            if (array[x].contains(username)) {
+                output += array[x] + "\n";
+            }
+        }
+
+        if (output.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No previous orders");
+        } else {
+            JOptionPane.showMessageDialog(this, output);
+        }
+
+        this.pack();
+    }//GEN-LAST:event_previousOrdersButtonMouseClicked
+
+    private void signOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutButtonMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_signOutButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
