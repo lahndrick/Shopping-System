@@ -146,7 +146,7 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         String[] items = cart.toString().split("\n");
         shoppingCartList.setListData(items);
         itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
-        jScrollPane2.setViewportView(shoppingCartList);
+        jScrollPane3.setViewportView(shoppingCartList);
     }//GEN-LAST:event_removeItemButtonMouseClicked
 
 
