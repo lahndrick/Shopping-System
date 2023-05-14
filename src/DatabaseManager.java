@@ -81,17 +81,25 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
     @Override
     public void writeToInventory(Inventory inv) {
         try {
-            Connection conn = DriverManager.getConnection(URL);
-            String query = null;
+            Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+            String query = "";
             Statement statement = null;
+            Item[] items = readFromInventory();
+            Item newItem = inv.getLast();
+
+            inv = new Inventory();
+
+            for (int x = 0; x < items.length; x++) {
+                inv.addItem(items[x]);
+            }
+
+            inv.addItem(newItem);
 
             for (int x = 0; x < inv.getSize(); x++) {
-                String name = inv.getItem(x).getName();
-                Double cost = inv.getItem(x).getCost();
-
-                query = "INSERT INTO Inventory (name, cost) VALUES ('" + name + "', " + cost + ")";
+                query = "INSERT INTO Inventory (name, cost) VALUES ('" + inv.getItem(x).getName() + "', " + inv.getItem(x).getCost() + ")";
                 statement = conn.createStatement();
                 statement.executeUpdate(query);
+                System.out.println("item count: " + x);
             }
 
             statement.close();

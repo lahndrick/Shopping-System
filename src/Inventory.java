@@ -58,7 +58,6 @@ public class Inventory extends DatabaseManager {
     public void addItem(Item item) {
         if (this.checkItemName(item.getName())) {
             stock.add(item);
-            writeToInventory(this);
         }
     }
 
@@ -87,5 +86,9 @@ public class Inventory extends DatabaseManager {
             }
         }
         return true;
+    }
+    
+    public Item getLast(){
+        return this.getItem(this.getSize());
     }
 }
