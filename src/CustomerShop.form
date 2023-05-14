@@ -88,6 +88,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Finalise cart"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="finaliseCartButtonMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="signOutButton">
       <Properties>

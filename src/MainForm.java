@@ -1,7 +1,6 @@
 
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Lahndrick Hendricks
@@ -126,15 +125,20 @@ public class MainForm extends javax.swing.JFrame {
             CustomerShop cusShop = new CustomerShop();
             cusShop.setSize(desktopPane.getSize());
             desktopPane.add(cusShop).setVisible(true);
+            cusShop.setUsername(usernameField.getText());
+            cusShop.setPassword(passwordField.getText());
+
         } else if (new LoginUser(usernameField.getText(), passwordField.getText(), user).getProceed() == true && usernameField.getText().equalsIgnoreCase("admin")) {
             desktopPane.removeAll();
             this.repaint();
             AdminShop adminShop = new AdminShop();
             adminShop.setSize(desktopPane.getSize());
             desktopPane.add(adminShop).setVisible(true);
+            adminShop.setUsername(usernameField.getText());
+            adminShop.setPassword(passwordField.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect username or password");
         }
-
-
     }//GEN-LAST:event_loginButtonMouseClicked
 
     private void createUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createUserButtonMouseClicked
@@ -144,6 +148,8 @@ public class MainForm extends javax.swing.JFrame {
 
         if (cu.getCheck()) {
             JOptionPane.showMessageDialog(null, "New User Created");
+        } else {
+            JOptionPane.showMessageDialog(null, "Username already exists");
         }
     }//GEN-LAST:event_createUserButtonMouseClicked
 

@@ -32,7 +32,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         try {
             ArrayList<String> list = new ArrayList<>();
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            String query = "SELECT username, total_paid FROM Transactions";
+            String query = "SELECT username, total FROM transactionlog";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -62,7 +62,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
     public void writeToTransactionLog(String username, Double cost) {
         try {
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            String query = "INSERT INTO Transactions (username, total_paid) VALUES ('" + username + "', " + cost + ")";
+            String query = "INSERT INTO transactionlog (username, total) VALUES ('" + username + "', " + cost + ")";
             Statement statement = conn.createStatement();
             statement.executeUpdate(query);
 

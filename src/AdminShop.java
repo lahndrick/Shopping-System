@@ -5,8 +5,18 @@
  */
 public class AdminShop extends javax.swing.JInternalFrame {
 
-    DatabaseManager db = new DatabaseManager();
-    
+    private DatabaseManager db = new DatabaseManager();
+    private String username;
+    private String password;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     /**
      * Creates new form adminShop
      */

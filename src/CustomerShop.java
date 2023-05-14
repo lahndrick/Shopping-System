@@ -5,9 +5,19 @@
  */
 public class CustomerShop extends javax.swing.JInternalFrame {
 
-    ShoppingCart cart;
-    Inventory inv;
-    DatabaseManager db = new DatabaseManager();
+    private String username;
+    private String password;
+    private ShoppingCart cart;
+    private Inventory inv;
+    private DatabaseManager db = new DatabaseManager();
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     /**
      * Creates new form CustomerShop
@@ -48,6 +58,11 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         });
 
         finaliseCartButton.setText("Finalise cart");
+        finaliseCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                finaliseCartButtonMouseClicked(evt);
+            }
+        });
 
         signOutButton.setText("Sign out");
 
@@ -148,6 +163,15 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
         jScrollPane3.setViewportView(shoppingCartList);
     }//GEN-LAST:event_removeItemButtonMouseClicked
+
+    private void finaliseCartButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_finaliseCartButtonMouseClicked
+        new CartFinaliser(new User(username, password), cart).addTransaction();
+        cart.clearCart();
+        String[] items = cart.toString().split("\n");
+        shoppingCartList.setListData(items);
+        itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
+        jScrollPane3.setViewportView(shoppingCartList);
+    }//GEN-LAST:event_finaliseCartButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
