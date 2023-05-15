@@ -70,6 +70,11 @@ public class AdminShop extends javax.swing.JInternalFrame {
         });
 
         removeUserButton.setText("Remove user");
+        removeUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeUserButtonMouseClicked(evt);
+            }
+        });
 
         viewOrdersButton.setText("View orders");
         viewOrdersButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -157,7 +162,7 @@ public class AdminShop extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -206,12 +211,12 @@ public class AdminShop extends javax.swing.JInternalFrame {
         String value = values[0];
         db.removeItemFromInventory(value);
         Item[] items = db.readFromInventory();
-        
+
         inv = new Inventory();
-        for(int x = 0;x < items.length;x++) {
+        for (int x = 0; x < items.length; x++) {
             inv.addItem(items[x]);
         }
-        
+
         inventoryJList.setListData(inv.toString().split("\n"));
         jScrollPane2.setViewportView(inventoryJList);
     }//GEN-LAST:event_removeItemButtonMouseClicked
@@ -232,6 +237,23 @@ public class AdminShop extends javax.swing.JInternalFrame {
 
         this.pack();
     }//GEN-LAST:event_viewOrdersButtonMouseClicked
+
+    private void removeUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeUserButtonMouseClicked
+        String user = userJList.getSelectedValue();
+        db.removeUserAdmin(user);
+        
+        ArrayList<String[]> userlist = db.readFromUserList();
+
+        String[] usernames = new String[userlist.size()];
+        for (int x = 0; x < usernames.length; x++) {
+            if (!userlist.get(x)[0].equalsIgnoreCase("admin")) {
+                usernames[x] = userlist.get(x)[0];
+            }
+        }
+        
+        userJList.setListData(usernames);
+        jScrollPane1.setViewportView(userJList);
+    }//GEN-LAST:event_removeUserButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
