@@ -242,7 +242,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
     public void removeUserAdmin(String username) {
         try {
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            String query = "DELETE FROM userlist WHERE username = '" + username;
+            String query = "DELETE FROM userlist WHERE username = '" + username + "'";
 
             Statement statement = conn.createStatement();
             statement.executeUpdate(query);

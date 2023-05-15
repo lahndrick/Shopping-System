@@ -16,10 +16,9 @@ public class LoginUser extends DatabaseManager {
         this.proceed = false;
 
         if (testLogin(username, password)) {
-            System.out.println("Welcome, " + username);
             this.proceed = true;
         } else {
-            System.out.println("Incorrect username or password.");
+            this.proceed = false;
         }
     }
 

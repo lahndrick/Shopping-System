@@ -58,8 +58,6 @@ public class Inventory extends DatabaseManager {
     public void addItem(Item item) {
         if (this.checkItemName(item.getName()) && item.getCost() > 0) {
             stock.add(item);
-        } else {
-            System.out.println("problem is in inv");
         }
     }
 

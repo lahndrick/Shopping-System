@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +24,6 @@ public class CreateUser extends DatabaseManager {
             check = true;
             writeToUserList(user);
         } else {
-            System.out.println("Username already taken.");
             check = false;
         }
     }
