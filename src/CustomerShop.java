@@ -96,6 +96,7 @@ public class CustomerShop extends javax.swing.JInternalFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        shoppingCartList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(shoppingCartList);
 
         inventoryList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -103,6 +104,7 @@ public class CustomerShop extends javax.swing.JInternalFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        inventoryList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(inventoryList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
