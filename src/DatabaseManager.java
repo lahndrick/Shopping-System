@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -253,5 +255,15 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }
+    }
+
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        
+        return null;
     }
 }

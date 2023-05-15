@@ -1,13 +1,11 @@
-
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Lahndrick Hendricks
  *
- * This class is used to create users, it includes the methods checkUsername and
- * constructor CreateUser
+ * This class is used to create users, it includes the methods checkUsername and constructor CreateUser
+ * 
  */
 public class CreateUser extends DatabaseManager {
 
