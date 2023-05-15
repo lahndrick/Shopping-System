@@ -99,6 +99,7 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
     }
 
     //method to add one item to the table instead of the whole inventory
+    @Override
     public void writeItemToInventory(String name, Double cost) {
         try {
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
@@ -116,6 +117,8 @@ public class DatabaseManager implements TransactionManager, InventoryManager, Us
         }
     }
 
+    //method to remove on item from the table
+    @Override
     public void removeItemFromInventory(String name) {
         try {
             Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);

@@ -1,7 +1,6 @@
 
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Lahndrick Hendricks
@@ -67,6 +66,11 @@ public class AdminShop extends javax.swing.JInternalFrame {
         removeUserButton.setText("Remove user");
 
         viewOrdersButton.setText("View orders");
+        viewOrdersButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewOrdersButtonMouseClicked(evt);
+            }
+        });
 
         signOutButton.setText("Sign out");
         signOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -152,7 +156,6 @@ public class AdminShop extends javax.swing.JInternalFrame {
     private void addItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addItemButtonMouseClicked
         String itemName = itemNameTextField.getText();
         Double itemCost = Double.parseDouble(itemCostTextField.getText());
-        //TODO update the list
         db.writeItemToInventory(itemName, itemCost);
 
         Item[] items = db.readFromInventory();
@@ -170,30 +173,36 @@ public class AdminShop extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_signOutButtonMouseClicked
 
     private void removeItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeItemButtonMouseClicked
-//        int index = shoppingCartList.getSelectedIndex();
-//        cart.removeItem(index);
-//        String[] items = cart.toString().split("\n");
-//        shoppingCartList.setListData(items);
-//        itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
-//        jScrollPane3.setViewportView(shoppingCartList);     
-        int index = inventoryJList.getSelectedIndex();
-
-        if (index < 0) {
-            JOptionPane.showMessageDialog(this, "Error");
-        }
-
-        Item item = inv.getItem(index);
-        db.removeItemFromInventory(item.getName());
-        inv = new Inventory();
+        String[] values = inventoryJList.getSelectedValue().split(",");
+        String value = values[0];
+        db.removeItemFromInventory(value);
         Item[] items = db.readFromInventory();
-
-        for (int x = 0; x < items.length; x++) {
+        
+        inv = new Inventory();
+        for(int x = 0;x < items.length;x++) {
             inv.addItem(items[x]);
         }
-
+        
         inventoryJList.setListData(inv.toString().split("\n"));
         jScrollPane2.setViewportView(inventoryJList);
     }//GEN-LAST:event_removeItemButtonMouseClicked
+
+    private void viewOrdersButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewOrdersButtonMouseClicked
+        String[] array = db.readFromTransactionLog();
+        String output = "";
+
+        for (int x = 0; x < array.length; x++) {
+            output += array[x] + "\n";
+        }
+
+        if (output.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No previous orders");
+        } else {
+            JOptionPane.showMessageDialog(this, output);
+        }
+
+        this.pack();
+    }//GEN-LAST:event_viewOrdersButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
