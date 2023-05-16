@@ -9,15 +9,9 @@ import java.util.Collections;
 public class ShoppingCart {
 
     private ArrayList<Item> cart;
-    private boolean pickup;
 
     public ShoppingCart() {
         this.cart = new ArrayList();
-        this.pickup = false;
-    }
-
-    public void setPickup(Boolean pickup) {
-        this.pickup = pickup;
     }
 
     public double getTotal() {
