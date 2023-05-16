@@ -45,13 +45,6 @@ public class Inventory extends DatabaseManager {
     }
 
     public int getSize() {
-        Item[] items = readFromInventory();
-        stock = new ArrayList();
-
-        for (int x = 0; x < stock.size(); x++) {
-            stock.add(items[x]);
-        }
-
         return stock.size();
     }
 
@@ -81,7 +74,7 @@ public class Inventory extends DatabaseManager {
     public boolean checkItemName(String name) {
 
         for (int x = 0; x < this.getSize(); x++) {
-            if (name.equalsIgnoreCase(this.getItem(x).getName())) {
+            if (name.equalsIgnoreCase(getItem(x).getName())) {
                 return false;
             }
         }
