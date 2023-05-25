@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 
 /**
@@ -188,18 +189,35 @@ public class AdminShop extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addItemButtonMouseClicked
-        String itemName = itemNameTextField.getText();
-        Double itemCost = Double.parseDouble(itemCostTextField.getText());
-        db.writeItemToInventory(itemName, itemCost);
+        try {
+            if (itemNameTextField.getText().replaceFirst("[^a-zA-Z]", "").isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Item name can only be alphabetic letters.");
+                throw new Exception();
+            } else if (!itemCostTextField.getText().replaceAll("[0-9-|-]", "").isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Item cost can only contain numbers.");
+                throw new Exception();
+            } else if (Double.parseDouble(itemCostTextField.getText()) < 0) {
+                JOptionPane.showMessageDialog(this, "Price must be above $0.");
+                throw new Exception();
+            }
 
-        Item[] items = db.readFromInventory();
+            if (Double.parseDouble(itemCostTextField.getText()) > 0) {
+                String itemName = itemNameTextField.getText();
+                Double itemCost = Double.parseDouble(itemCostTextField.getText());
+                db.writeItemToInventory(itemName, itemCost);
 
-        for (int x = 0; x < items.length; x++) {
-            inv.addItem(items[x]);
+                Item[] items = db.readFromInventory();
+
+                for (int x = 0; x < items.length; x++) {
+                    inv.addItem(items[x]);
+                }
+
+                inventoryJList.setListData(inv.toString().split("\n"));
+                jScrollPane2.setViewportView(inventoryJList);
+            }
+        } catch (Exception e) {
+
         }
-
-        inventoryJList.setListData(inv.toString().split("\n"));
-        jScrollPane2.setViewportView(inventoryJList);
     }//GEN-LAST:event_addItemButtonMouseClicked
 
     private void signOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutButtonMouseClicked
@@ -207,18 +225,25 @@ public class AdminShop extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_signOutButtonMouseClicked
 
     private void removeItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeItemButtonMouseClicked
-        String[] values = inventoryJList.getSelectedValue().split(",");
-        String value = values[0];
-        db.removeItemFromInventory(value);
-        Item[] items = db.readFromInventory();
+        String[] values;
 
-        inv = new Inventory();
-        for (int x = 0; x < items.length; x++) {
-            inv.addItem(items[x]);
+        try {
+            values = inventoryJList.getSelectedValue().split(",");
+
+            String value = values[0];
+            db.removeItemFromInventory(value);
+            Item[] items = db.readFromInventory();
+
+            inv = new Inventory();
+            for (int x = 0; x < items.length; x++) {
+                inv.addItem(items[x]);
+            }
+
+            inventoryJList.setListData(inv.toString().split("\n"));
+            jScrollPane2.setViewportView(inventoryJList);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "No item selected.");
         }
-
-        inventoryJList.setListData(inv.toString().split("\n"));
-        jScrollPane2.setViewportView(inventoryJList);
     }//GEN-LAST:event_removeItemButtonMouseClicked
 
     private void viewOrdersButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewOrdersButtonMouseClicked
@@ -230,7 +255,7 @@ public class AdminShop extends javax.swing.JInternalFrame {
         }
 
         if (output.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No previous orders");
+            JOptionPane.showMessageDialog(this, "No previous orders.");
         } else {
             JOptionPane.showMessageDialog(this, output);
         }
@@ -239,20 +264,28 @@ public class AdminShop extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_viewOrdersButtonMouseClicked
 
     private void removeUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeUserButtonMouseClicked
-        String user = userJList.getSelectedValue();
-        db.removeUserAdmin(user);
-        
-        ArrayList<String[]> userlist = db.readFromUserList();
-
-        String[] usernames = new String[userlist.size()];
-        for (int x = 0; x < usernames.length; x++) {
-            if (!userlist.get(x)[0].equalsIgnoreCase("admin")) {
-                usernames[x] = userlist.get(x)[0];
+        try {
+            if(userJList.getSelectedValue().isEmpty()) {
+                throw new Exception();
             }
+            
+            String user = userJList.getSelectedValue();
+            db.removeUserAdmin(user);
+
+            ArrayList<String[]> userlist = db.readFromUserList();
+
+            String[] usernames = new String[userlist.size()];
+            for (int x = 0; x < usernames.length; x++) {
+                if (!userlist.get(x)[0].equalsIgnoreCase("admin")) {
+                    usernames[x] = userlist.get(x)[0];
+                }
+            }
+
+            userJList.setListData(usernames);
+            jScrollPane1.setViewportView(userJList);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No user is selected.");
         }
-        
-        userJList.setListData(usernames);
-        jScrollPane1.setViewportView(userJList);
     }//GEN-LAST:event_removeUserButtonMouseClicked
 
 
