@@ -34,6 +34,7 @@ public class MainForm extends javax.swing.JFrame {
         createUserButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         loginButton.setText("Log in");
         loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -41,6 +42,8 @@ public class MainForm extends javax.swing.JFrame {
                 loginButtonMouseClicked(evt);
             }
         });
+
+        desktopPane.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
         desktopPane.setLayout(desktopPaneLayout);
@@ -52,6 +55,8 @@ public class MainForm extends javax.swing.JFrame {
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 661, Short.MAX_VALUE)
         );
+
+        passwordField.setToolTipText("");
 
         usernameLabel.setText("Username");
 
@@ -119,6 +124,7 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
+
         if (new LoginUser(usernameField.getText(), passwordField.getText(), user).getProceed() == true && !(usernameField.getText().equalsIgnoreCase("admin"))) {
             desktopPane.removeAll();
             this.repaint();
@@ -127,6 +133,7 @@ public class MainForm extends javax.swing.JFrame {
             desktopPane.add(cusShop).setVisible(true);
             cusShop.setUsername(usernameField.getText());
             cusShop.setPassword(passwordField.getText());
+            passwordField.setText("");
 
         } else if (new LoginUser(usernameField.getText(), passwordField.getText(), user).getProceed() == true && usernameField.getText().equalsIgnoreCase("admin")) {
             desktopPane.removeAll();
@@ -136,21 +143,37 @@ public class MainForm extends javax.swing.JFrame {
             desktopPane.add(adminShop).setVisible(true);
             adminShop.setUsername(usernameField.getText());
             adminShop.setPassword(passwordField.getText());
+            passwordField.setText("");
         } else {
-            JOptionPane.showMessageDialog(null, "Incorrect username or password");
+            JOptionPane.showMessageDialog(null, "Incorrect username or password.");
         }
     }//GEN-LAST:event_loginButtonMouseClicked
 
     private void createUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createUserButtonMouseClicked
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        CreateUser cu = new CreateUser(username, password);
+        try {
+            if (usernameField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Username field is empty.");
+                throw new Exception();
+            }
 
-        if (cu.getCheck()) {
-            JOptionPane.showMessageDialog(null, "New User Created");
-        } else {
-            JOptionPane.showMessageDialog(null, "Username already exists");
+            if (passwordField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Password field is empty.");
+                throw new Exception();
+            }
+
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            CreateUser cu = new CreateUser(username, password);
+
+            if (cu.getCheck()) {
+                JOptionPane.showMessageDialog(null, "New User Created.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Username already exists.");
+            }
+        } catch (Exception e) {
+
         }
+
     }//GEN-LAST:event_createUserButtonMouseClicked
 
     /**

@@ -52,6 +52,9 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         String[] items = inv.getStock();
         inventoryList = new javax.swing.JList<>();
 
+        setPreferredSize(new java.awt.Dimension(696, 744));
+        setRequestFocusEnabled(false);
+
         addItemButton.setText("Add item");
         addItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -160,31 +163,43 @@ public class CustomerShop extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addItemButtonMouseClicked
-        int index = inventoryList.getSelectedIndex();
-        Item item = inv.getItem(index);
-        cart.addItem(item);
-        String[] items = cart.toString().split("\n");
-        shoppingCartList.setListData(items);
-        itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
-        jScrollPane3.setViewportView(shoppingCartList);
+        if (!inventoryList.isSelectionEmpty()) {
+            int index = inventoryList.getSelectedIndex();
+            Item item = inv.getItem(index);
+            cart.addItem(item);
+            String[] items = cart.toString().split("\n");
+            shoppingCartList.setListData(items);
+            itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
+            jScrollPane3.setViewportView(shoppingCartList);
+        } else {
+            JOptionPane.showMessageDialog(this, "No item selected to add.");
+        }
     }//GEN-LAST:event_addItemButtonMouseClicked
 
     private void removeItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeItemButtonMouseClicked
-        int index = shoppingCartList.getSelectedIndex();
-        cart.removeItem(index);
-        String[] items = cart.toString().split("\n");
-        shoppingCartList.setListData(items);
-        itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
-        jScrollPane3.setViewportView(shoppingCartList);
+        if (!shoppingCartList.isSelectionEmpty()) {
+            int index = shoppingCartList.getSelectedIndex();
+            cart.removeItem(index);
+            String[] items = cart.toString().split("\n");
+            shoppingCartList.setListData(items);
+            itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
+            jScrollPane3.setViewportView(shoppingCartList);
+        } else {
+            JOptionPane.showMessageDialog(this, "No item selected to remove.");
+        }
     }//GEN-LAST:event_removeItemButtonMouseClicked
 
     private void finaliseCartButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_finaliseCartButtonMouseClicked
-        new CartFinaliser(new User(username, password), cart).addTransaction();
-        cart.clearCart();
-        String[] items = cart.toString().split("\n");
-        shoppingCartList.setListData(items);
-        itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
-        jScrollPane3.setViewportView(shoppingCartList);
+        if (cart.getSize() > 0) {
+            new CartFinaliser(new User(username, password), cart).addTransaction();
+            cart.clearCart();
+            String[] items = cart.toString().split("\n");
+            shoppingCartList.setListData(items);
+            itemsCartLabel.setText("Items in cart total: " + cart.getTotal());
+            jScrollPane3.setViewportView(shoppingCartList);
+        } else {
+            JOptionPane.showMessageDialog(this, "Cart is empty.");
+        }
     }//GEN-LAST:event_finaliseCartButtonMouseClicked
 
     private void previousOrdersButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousOrdersButtonMouseClicked
@@ -192,18 +207,16 @@ public class CustomerShop extends javax.swing.JInternalFrame {
         String output = "";
 
         for (int x = 0; x < array.length; x++) {
-            if (array[x].contains(username)) {
+            if (array[x].split(",")[0].equalsIgnoreCase(username)) {
                 output += array[x] + "\n";
             }
         }
 
         if (output.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No previous orders");
+            JOptionPane.showMessageDialog(this, "No previous orders.");
         } else {
             JOptionPane.showMessageDialog(this, output);
         }
-
-        this.pack();
     }//GEN-LAST:event_previousOrdersButtonMouseClicked
 
     private void signOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutButtonMouseClicked

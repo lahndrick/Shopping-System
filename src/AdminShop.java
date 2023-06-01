@@ -56,6 +56,9 @@ public class AdminShop extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(676, 661));
+        setRequestFocusEnabled(false);
+
         addItemButton.setText("Add item");
         addItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -190,7 +193,13 @@ public class AdminShop extends javax.swing.JInternalFrame {
 
     private void addItemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addItemButtonMouseClicked
         try {
-            if (itemNameTextField.getText().replaceFirst("[^a-zA-Z]", "").isEmpty()) {
+            if (itemNameTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Item name is empty.");
+                throw new Exception();
+            } else if (itemCostTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Item cost is empty.");
+                throw new Exception();
+            } else if (itemNameTextField.getText().replaceFirst("[^a-zA-Z]", "").isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Item name can only be alphabetic letters.");
                 throw new Exception();
             } else if (!itemCostTextField.getText().replaceAll("[0-9-|-]", "").isEmpty()) {
@@ -259,16 +268,14 @@ public class AdminShop extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, output);
         }
-
-        this.pack();
     }//GEN-LAST:event_viewOrdersButtonMouseClicked
 
     private void removeUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeUserButtonMouseClicked
         try {
-            if(userJList.getSelectedValue().isEmpty()) {
+            if (userJList.getSelectedValue().isEmpty()) {
                 throw new Exception();
             }
-            
+
             String user = userJList.getSelectedValue();
             db.removeUserAdmin(user);
 
