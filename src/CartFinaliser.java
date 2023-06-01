@@ -13,7 +13,7 @@ public class CartFinaliser extends ShoppingCart {
     private User user;
     private DatabaseManager fileMan;
     private double total;
-    //ATTENTION test value is for disabling JOptionPane in test case, do not adjust otherwise  
+    //ATTENTION test value is for disabling JOptionPane in test cases, do not adjust otherwise or remove variable
     private boolean test;
 
     public CartFinaliser(User user, ShoppingCart cart) {
